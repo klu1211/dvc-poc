@@ -1,6 +1,6 @@
 git pull origin master
-branch_name=$(date +%x/%H/%M/%S)
-git checkout -b training_run/$branch_name
+branch_name=training_run/$(date +%x/%H/%M/%S)
+git checkout -b $branch_name
 aws s3 sync s3://dvc-root-data-bucket ./data
 git add .
 git push origin $branch_name
