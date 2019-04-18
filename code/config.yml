@@ -1,2 +1,3 @@
 FilePaths:
   input: "data"
+  save: "output/concatentated.txt"
