@@ -4,9 +4,9 @@ phases:
   pre_build:
     commands:
       - sudo apt update
-      - sudo apt install python3-pip
-      - pip3 install dvc
-      - pip3 install boto3
+      - sudo apt install python3-pip -y
+      - pip3 install -y dvc
+      - pip3 install -y boto3
       - $(aws ecr get-login --no-include-email --region ap-southeast-2)
   build:
     commands:
