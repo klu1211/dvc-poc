@@ -1,0 +1,6 @@
+['remote "myremote"']
+url = s3://dvc-poc
+[core]
+remote = myremote
+[cache]
+protected = true
