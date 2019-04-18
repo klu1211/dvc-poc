@@ -11,6 +11,7 @@ dvc repro
 
 # Add changes and push them 
 git add .
+git commit -m "finished training run"
 git push origin $branch_name
 
 # Finally push these changes to DVC so that when we checkout this branch again we can pull the correct data down
