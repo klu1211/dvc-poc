@@ -3,8 +3,8 @@ version: 0.2
 phases:
   pre_build:
     commands:
-      - sudo apt-get update
-      - sudo apt-get upgrade
+      - sudo apt-get update -y
+      - sudo apt-get upgrade -y
       - sudo apt-get install python3.6 -y
       - pip3 install dvc
       - pip3 install boto3
