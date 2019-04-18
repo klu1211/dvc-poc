@@ -3,8 +3,8 @@ version: 0.2
 phases:
   pre_build:
     commands:
-      - pip install dvc
-      - pip install boto3
+      - pip3 install dvc
+      - pip3 install boto3
       - $(aws ecr get-login --no-include-email --region ap-southeast-2)
   build:
     commands:
