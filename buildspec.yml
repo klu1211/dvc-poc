@@ -8,10 +8,12 @@ phases:
       - pip3 install -y dvc
       - pip3 install -y boto3
       - $(aws ecr get-login --no-include-email --region ap-southeast-2)
+      - dvc pull Dvcfile
   build:
     commands:
       - docker build --tag 889433419955.dkr.ecr.ap-southeast-2.amazonaws.com/dvc-poc:$(git describe --tag) 
   post_build:
     commands:
+      - docker container run 889433419955.dkr.ecr.ap-southeast-2.amazonaws.com/dvc-poc:$(git describe --tag) code/read_concatenate_files.py --config_file_path code/config.yml
       - docker push 889433419955.dkr.ecr.ap-southeast-2.amazonaws.com/dvc-poc:$(git describe --tag)
 
