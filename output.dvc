@@ -1,0 +1,14 @@
+cmd: python code/concatentate_files.py --config_file_path code/config.yml
+deps:
+- md5: eb59efcd5cd87a92e59557d3bd575e52.dir
+  path: code
+- md5: d95092749af34ba6ab262d024429daa1.dir
+  path: data
+md5: 70c825a8d2aa71d6fd8bd1bf16ddf3e7
+outs:
+- cache: true
+  md5: ecd81a62bfe4c6ad8ae716e046477aef.dir
+  metric: false
+  path: output
+  persist: false
+wdir: .
