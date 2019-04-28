@@ -5,7 +5,6 @@ phases:
     commands:
       - sudo apt-get update -y
       - sudo apt-get upgrade -y
-      - sudo apt-get install python3.6 -y
       - pip3 install dvc
       - pip3 install boto3
       - $(aws ecr get-login --no-include-email --region ap-southeast-2)
