@@ -23,10 +23,11 @@ ENV PATH /opt/conda/bin:$PATH
 # Add and install our conda environment
 COPY environment.yml /tmp/environment.yml
 RUN conda env create -f /tmp/environment.yml
-COPY ./code /code
+COPY ./code /root
+COPY ./output /root
 WORKDIR /
-RUN chmod 777 -R /code
-WORKDIR /code
+RUN chmod 777 -R /root
+WORKDIR /root
 
 ENV PATH /opt/conda/envs/dvc-poc/bin:$PATH
 ENV LC_ALL C.UTF-8
