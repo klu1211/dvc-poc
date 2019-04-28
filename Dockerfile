@@ -23,9 +23,8 @@ ENV PATH /opt/conda/bin:$PATH
 # Add and install our conda environment
 COPY environment.yml /tmp/environment.yml
 RUN conda env create -f /tmp/environment.yml
-COPY ./code /root
-COPY ./output /root
-WORKDIR /
+COPY code/ /root/code
+COPY output/ /root/output
 RUN chmod 777 -R /root
 WORKDIR /root
 

@@ -7,7 +7,7 @@ from pathlib import Path
 def main(config_file_path):
     all_words = []
     with Path(config_file_path).open("r") as f:
-        config = yaml.load(f)
+        config = yaml.safe_load(f)
     file_path = Path(config["FilePaths"]["input"])
     save_path = Path(config["FilePaths"]["save"])
     for path in file_path.glob("*"):
