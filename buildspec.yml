@@ -7,7 +7,7 @@ phases:
       - echo "$SSH_KEY" > ~/.ssh/ssh_key  # Save the machine user's private key
       - chmod 600 ~/.ssh/ssh_key          # Adjust the private key permissions (avoids a critical error)
       - eval "$(ssh-agent -s)"            # Initialize the ssh agent
-      - ssh-add ~/.ssh/ssh_key            # Add the machine user's key to the ssh "keychain"
+      - sudo ssh-add ~/.ssh/ssh_key            # Add the machine user's key to the ssh "keychain"
       - mkdir code && cd code
       # SSH Credentials have been set up. Check for a .git directory to determine if we need to set up our git package
       - |
