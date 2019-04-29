@@ -20,7 +20,7 @@ RUN wget --quiet https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86
     echo ". /opt/conda/etc/profile.d/conda.sh" >> ~/.bashrc
 ENV PATH /opt/conda/bin:$PATH
 
-# Add and install our conda environment
+# Add and install our conda environment!
 COPY environment.yml /tmp/environment.yml
 RUN conda env create -f /tmp/environment.yml
 COPY code/ /root/code
