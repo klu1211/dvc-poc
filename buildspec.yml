@@ -3,6 +3,7 @@ version: 0.2
 phases:
   pre_build:
     commands:
+      - add-apt-repository ppa:jonathonf/python-3.6
       - sudo apt-get update -y
       - sudo apt-get upgrade -y
       - sudo apt-get install python3.6 -y
