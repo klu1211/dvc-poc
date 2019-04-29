@@ -9,7 +9,7 @@ aws s3 sync s3://dvc-root-data-bucket ./data
 # Rerun training if there are any changes to our code or data
 dvc repro
 
-# Add changes and push them 
+# Add changes and push them!
 git add .
 git commit -m "finished training run"
 git push origin $branch_name
