@@ -7,13 +7,21 @@ env:
 phases:
   pre_build:
     commands:
-      - aws codepipeline get-pipeline-state --name "dvc-poc"
-      - mkdir -p ~/.ssh                   # Ensure the .ssh directory exists!
+      - mkdir -p ~/.ssh                   # Ensure the .ssh directory exists
       - echo "$SSH_KEY" > ~/.ssh/ssh_key  # Save the machine user's private key
       - chmod 600 ~/.ssh/ssh_key          # Adjust the private key permissions (avoids a critical error)
       - eval "$(ssh-agent -s)"            # Initialize the ssh agent
-      - ssh-keygen -F github.com || ssh-keyscan github.com >>~/.ssh/known_hosts
-      - git config --global url."git@github.com:".insteadOf "https://github.com/"
+      - | 
+        cat > ~/.ssh/config <<_EOF_
+        Host $GIT_HOST
+            HostName ssh.github.com
+            Port 443
+            IdentityFile ~/.ssh/ssh_key
+            PreferredAuthentications
+            IdentitiesOnly yes
+        _EOF_
+      - cat ~/.ssh/config
+      - ssh-keygen -F $GIT_HOST || ssh-keyscan $GIT_HOST >> ~/.ssh/known_hosts
       - mkdir root && cd root
       # SSH Credentials have been set up. Check for a .git directory to determine if we need to set up our git package
       - |
@@ -36,3 +44,4 @@ phases:
     commands:
       - docker container run 889433419955.dkr.ecr.ap-southeast-2.amazonaws.com/dvc-poc:$(git describe --tag) code/read_concatenate_files.py --config_file_path code/config.yml
       - docker push 889433419955.dkr.ecr.ap-southeast-2.amazonaws.com/dvc-poc:$(git describe --tag)
+
