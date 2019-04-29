@@ -11,7 +11,8 @@ phases:
       - echo "$SSH_KEY" > ~/.ssh/ssh_key  # Save the machine user's private key
       - chmod 600 ~/.ssh/ssh_key          # Adjust the private key permissions (avoids a critical error)
       - eval "$(ssh-agent -s)"            # Initialize the ssh agent
-      - ssh-add ~/.ssh/ssh_key 
+      - ssh-keygen -F github.com || ssh-keyscan github.com >>~/.ssh/known_hosts
+      - git config --global url."git@github.com:".insteadOf "https://github.com/"
       - mkdir root && cd root
       # SSH Credentials have been set up. Check for a .git directory to determine if we need to set up our git package
       - |
