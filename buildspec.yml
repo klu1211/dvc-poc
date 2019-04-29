@@ -12,14 +12,14 @@ phases:
         Host github.straxcorp.com
             HostName ssh.github.com
             Port 443
-	    IdentityFile ~/.ssh/ssh_key
-	    IdentitiesOnly yes
-	_EOF_
+            IdentityFile ~/.ssh/ssh_key
+            IdentitiesOnly yes
+        _EOF_
       - |
         if ! ssh-keygen -F $GIT_HOST > /dev/null; then
-	    echo "- Adding $GIT_HOST to known hosts"
-	    ssh-keyscan -t rsa $GIT_HOST >> ~/.ssh/known_hosts
-	fi
+            echo "- Adding $GIT_HOST to known hosts"
+            ssh-keyscan -t rsa $GIT_HOST >> ~/.ssh/known_hosts
+        fi
       - mkdir code && cd code
       # SSH Credentials have been set up. Check for a .git directory to determine if we need to set up our git package
       - |
