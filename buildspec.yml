@@ -3,8 +3,20 @@ version: 0.2
 phases:
   pre_build:
     commands:
-      - echo $CODEBUILD_WEBHOOK_TRIGGER
-      - git log
+      - mkdir -p ~/.ssh                   # Ensure the .ssh directory exists
+      - echo "$SSH_KEY" > ~/.ssh/ssh_key  # Save the machine user's private key
+      - chmod 600 ~/.ssh/ssh_key          # Adjust the private key permissions (avoids a critical error)
+      - eval "$(ssh-agent -s)"            # Initialize the ssh agent
+      - ssh-add ~/.ssh/ssh_key            # Add the machine user's key to the ssh "keychain"
+      - mkdir code && cd code
+      # SSH Credentials have been set up. Check for a .git directory to determine if we need to set up our git package
+      - |
+        if [ ! -d ".git" ]; then
+          git init                                                                          # Initialize Git
+          git remote add origin git@github.straxcorp.com:klu1211/dvc-poc.git                # Add the remote origin so we can fetch
+          git fetch                                                                         # Get all the things
+          git checkout -f "$CODEBUILD_RESOLVED_SOURCE_VERSION"                              # Checkout the specific commit we are building
+        fi
       - apt update -y
       - apt upgrade -y
       - pip install dvc
@@ -13,8 +25,8 @@ phases:
       - dvc pull Dvcfile
   build:
     commands:
-      - docker build --tag 889433419955.dkr.ecr.ap-southeast-2.amazonaws.com/dvc-poc:$CODEBUILD_GIT_TAG
+      - docker build --tag 889433419955.dkr.ecr.ap-southeast-2.amazonaws.com/dvc-poc:$(git describe --tag)
   post_build:
     commands:
-      - docker container run 889433419955.dkr.ecr.ap-southeast-2.amazonaws.com/dvc-poc:$CODEBUILD_GIT_TAG code/read_concatenate_files.py --config_file_path code/config.yml
-      - docker push 889433419955.dkr.ecr.ap-southeast-2.amazonaws.com/dvc-poc:$CODEBUILD_GIT_TAG
+      - docker container run 889433419955.dkr.ecr.ap-southeast-2.amazonaws.com/dvc-poc:$(git describe --tag) code/read_concatenate_files.py --config_file_path code/config.yml
+      - docker push 889433419955.dkr.ecr.ap-southeast-2.amazonaws.com/dvc-poc:$(git describe --tag)
