@@ -5,6 +5,7 @@ phases:
     commands:
       - add-apt-repository ppa:jonathonf/python-3.6
       - apt update -y
+      - apt upgrade -y
       - apt install python3.6 -y
       - apt install python3.6-dev -y 
       - apt install python3.6-venv -y
