@@ -1,5 +1,5 @@
 git pull origin master
-branch_name=training_run/$(date +'%Y-%m-%d_%H-%M-%S')
+branch_name=training_run/$(date +'%Y-%m-%d/%H-%M-%S')
 git checkout -b $branch_name
 
 # Pull down new data/models

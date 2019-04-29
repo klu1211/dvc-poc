@@ -3,6 +3,7 @@ version: 0.2
 phases:
   pre_build:
     commands:
+      - git log
       - apt update -y
       - apt upgrade -y
       - pip install dvc
@@ -11,9 +12,8 @@ phases:
       - dvc pull Dvcfile
   build:
     commands:
-      - docker build --tag 889433419955.dkr.ecr.ap-southeast-2.amazonaws.com/dvc-poc:$(git describe --tag) 
+      - docker build --tag 889433419955.dkr.ecr.ap-southeast-2.amazonaws.com/dvc-poc:$CODEBUILD_GIT_TAG
   post_build:
     commands:
-      - docker container run 889433419955.dkr.ecr.ap-southeast-2.amazonaws.com/dvc-poc:$(git describe --tag) code/read_concatenate_files.py --config_file_path code/config.yml
-      - docker push 889433419955.dkr.ecr.ap-southeast-2.amazonaws.com/dvc-poc:$(git describe --tag)
-
+      - docker container run 889433419955.dkr.ecr.ap-southeast-2.amazonaws.com/dvc-poc:$CODEBUILD_GIT_TAG code/read_concatenate_files.py --config_file_path code/config.yml
+      - docker push 889433419955.dkr.ecr.ap-southeast-2.amazonaws.com/dvc-poc:$CODEBUILD_GIT_TAG
