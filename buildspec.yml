@@ -24,7 +24,7 @@ phases:
             echo "- Adding $GIT_HOST to known hosts"
             ssh-keyscan -t rsa $GIT_HOST >> ~/.ssh/known_hosts
         fi
-      - mkdir code && cd code
+      - mkdir root && cd root
       # SSH Credentials have been set up. Check for a .git directory to determine if we need to set up our git package
       - |
         if [ ! -d ".git" ]; then
