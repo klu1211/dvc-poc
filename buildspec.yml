@@ -9,7 +9,7 @@ phases:
       - apt install python3.6 -y
       - apt install python3.6-dev -y 
       - apt install python3.6-venv -y
-      -	wget https://bootstrap.pypa.io/get-pip.py
+      - wget https://bootstrap.pypa.io/get-pip.py
       - python3.6 get-pip.py 
       - ln -s /usr/bin/python3.6 /usr/local/bin/python3
       - ln -s /usr/local/bin/pip /usr/local/bin/pip3
