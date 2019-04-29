@@ -2,7 +2,7 @@ version: 0.2
 
 env: 
   variables: 
-    GIT_HOST: github.straxcorp.com
+    GIT_HOST: github.com
 
 phases:
   pre_build:
@@ -14,10 +14,8 @@ phases:
       - | 
         cat > ~/.ssh/config <<_EOF_
         Host $GIT_HOST
-            HostName ssh.github.com
-            Port 443
+            User git
             IdentityFile ~/.ssh/ssh_key
-            PreferredAuthentications publickey
             IdentitiesOnly yes
         _EOF_
       - ssh-keygen -F $GIT_HOST || ssh-keyscan $GIT_HOST >> ~/.ssh/known_hosts
@@ -26,7 +24,7 @@ phases:
       - |
         if [ ! -d ".git" ]; then
           git init                                                                          # Initialize Git
-          git remote add origin git@github.straxcorp.com:klu1211/dvc-poc.git                          # Add the remote origin so we can fetch
+          git remote add origin git@github.com:klu1211/dvc-poc.git                          # Add the remote origin so we can fetch
           git fetch                                                                         # Get all the things
           git checkout -f "$CODEBUILD_RESOLVED_SOURCE_VERSION"                              # Checkout the specific commit we are building
         fi
