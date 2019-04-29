@@ -3,14 +3,8 @@ version: 0.2
 phases:
   pre_build:
     commands:
-      - add-apt-repository ppa:jonathonf/python-3.6
       - apt update -y
       - apt upgrade -y
-      - apt install python3.6 -y
-      - wget https://bootstrap.pypa.io/get-pip.py
-      - python3.6 get-pip.py 
-      - ln -s /usr/bin/python3.6 /usr/local/bin/python3
-      - ln -s /usr/local/bin/pip /usr/local/bin/pip3
       - pip install dvc
       - pip install boto3
       - $(aws ecr get-login --no-include-email --region ap-southeast-2)
