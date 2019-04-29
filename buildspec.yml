@@ -20,7 +20,7 @@ phases:
             PreferredAuthentications publickey
             IdentitiesOnly yes
         _EOF_
-      - ssh-keyscan -t rsa $GIT_HOST >> ~/.ssh/known_hosts
+      - ssh-keygen -F $GIT_HOST || ssh-keyscan $GIT_HOST >> ~/.ssh/known_hosts
       - mkdir root && cd root
       # SSH Credentials have been set up. Check for a .git directory to determine if we need to set up our git package
       - |
