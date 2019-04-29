@@ -9,7 +9,7 @@ phases:
       - eval "$(ssh-agent -s)"            # Initialize the ssh agent
       - | 
         cat > ~/.ssh/config <<_EOF_
-	Host github.straxcorp.com
+        Host github.straxcorp.com
             HostName ssh.github.com
             Port 443
 	    IdentityFile ~/.ssh/ssh_key
